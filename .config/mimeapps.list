@@ -1,0 +1,13 @@
+[Default Applications]
+text/html=google-chrome.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+x-scheme-handler/about=google-chrome.desktop
+x-scheme-handler/unknown=google-chrome.desktop
+inode/directory=thunar.desktop
+application/zip=userapp-unzip-U8UBA3.desktop
+
+[Added Associations]
+text/plain=nano-terminal.desktop;userapp-nano-C95282.desktop;
+application/zip=userapp-unzip-U8UBA3.desktop;
+application/x-bat=nano-terminal.desktop;

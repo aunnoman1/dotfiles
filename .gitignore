@@ -1,0 +1,4 @@
+.dotfiles
+.config-backup 
+*.local
+.config/zsh/histfile
