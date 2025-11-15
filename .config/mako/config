@@ -1,0 +1,16 @@
+max-history=5
+sort=-time
+on-button-left=dismiss
+on-button-right=invoke-default-action
+default-timeout=5000
+max-visible=5
+
+# Colors
+
+background-color=#1e1e2e
+text-color=#cdd6f4
+border-color=#b4befe
+progress-color=over #313244
+
+[urgency=high]
+border-color=#fab387
