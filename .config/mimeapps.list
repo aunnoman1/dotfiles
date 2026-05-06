@@ -6,8 +6,12 @@ x-scheme-handler/about=google-chrome.desktop
 x-scheme-handler/unknown=google-chrome.desktop
 inode/directory=thunar.desktop
 application/zip=userapp-unzip-U8UBA3.desktop
+video/mp4=com.google.Chrome.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 
 [Added Associations]
-text/plain=nano-terminal.desktop;userapp-nano-C95282.desktop;
+text/plain=code.desktop;nano-terminal.desktop;userapp-nano-C95282.desktop;
 application/zip=xarchiver.desktop;userapp-unzip-U8UBA3.desktop;
 application/x-bat=nano-terminal.desktop;
+video/mp4=com.google.Chrome.desktop;
+inode/directory=xarchiver.desktop;
