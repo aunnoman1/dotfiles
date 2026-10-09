@@ -22,14 +22,14 @@ for _ in $(seq 30); do
 done
 
 # Resolution/refresh from the Moonlight client; placed far away from real monitors
-hyprctl keyword monitor "${OUT},${W}x${H}@${FPS},10000x0,1"
+hyprctl eval "hl.monitor({ output = \"${OUT}\", mode = \"${W}x${H}@${FPS}\", position = \"10000x0\", scale = 1 })"
 
 # Bind workspace 99 to the headless output and instantiate it there
-hyprctl  keyword workspace "99,monitor:${OUT},default:true,gapsin:0,gapsout:0,border:false,rounding:false"
+hyprctl eval "hl.workspace_rule({ workspace = \"99\", monitor = \"${OUT}\", default = true, gaps_in = 0, gaps_out = 0, no_border = true, no_rounding = true })"
 sleep 0.2
-hyprctl dispatch focusmonitor "$OUT"
-hyprctl dispatch workspace 99
+hyprctl dispatch "hl.dsp.focus({ monitor = \"${OUT}\" })"
+hyprctl dispatch "hl.dsp.focus({ workspace = \"99\" })"
 
 # Give focus back to whatever you were using
-hyprctl dispatch focusmonitor "$PREV_MON"
-hyprctl dispatch workspace "$PREV_WS"
+hyprctl dispatch "hl.dsp.focus({ monitor = \"${PREV_MON}\" })"
+hyprctl dispatch "hl.dsp.focus({ workspace = \"${PREV_WS}\" })"
