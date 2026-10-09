@@ -86,6 +86,8 @@ plugins=(git
 	zsh-autosuggestions 
 	zsh-syntax-highlighting
 	copyfile
+	gitfast
+	
 	)
 
 source $ZSH/oh-my-zsh.sh
