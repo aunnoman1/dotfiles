@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Netflix
+Comment=Netflix in Chrome on XWayland (avoids black screen with NVIDIA on Wayland)
+Exec=/usr/bin/google-chrome-stable --ozone-platform=x11 --user-data-dir=/home/aunno/.local/share/chrome-netflix --class=netflix --app=https://www.netflix.com
+Icon=google-chrome
+Categories=AudioVideo;Video;
+StartupWMClass=netflix

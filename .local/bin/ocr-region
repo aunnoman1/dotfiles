@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Select a screen region, OCR it with tesseract, copy the text to the clipboard.
+set -o pipefail
+text=$(grimblast --freeze save area - | tesseract - - -l eng 2>/dev/null) || exit 1
+text=$(printf '%s' "$text" | sed -e 's/[[:space:]]*$//')
+[ -z "$text" ] && { notify-send -a OCR "OCR" "No text found"; exit 1; }
+printf '%s' "$text" | wl-copy
+notify-send -a OCR "Text copied" "$(printf '%s' "$text" | head -c 200)"

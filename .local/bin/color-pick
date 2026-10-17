@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Pick a colour on screen; hex goes to the clipboard and a swatch is shown.
+hex=$(hyprpicker -a -f hex) || exit 1
+[ -z "$hex" ] && exit 1
+swatch="${XDG_RUNTIME_DIR:-/tmp}/color-pick.png"
+magick -size 64x64 "xc:$hex" "$swatch" 2>/dev/null || convert -size 64x64 "xc:$hex" "$swatch" 2>/dev/null
+notify-send -a "Color picker" -i "$swatch" "$hex" "Copied to clipboard"

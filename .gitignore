@@ -1,4 +1,18 @@
 .dotfiles
-.config-backup 
-*.local
+.config-backup
+?*.local
+# ~/.local: ignore everything except own scripts and the Netflix launcher
+.local/*
+!.local/bin/
+.local/bin/*
+!.local/bin/lock
+!.local/bin/lock-nowplaying
+!.local/bin/color-pick
+!.local/bin/ocr-region
+!.local/bin/record-toggle
+!.local/share/
+.local/share/*
+!.local/share/applications/
+.local/share/applications/*
+!.local/share/applications/netflix.desktop
 .config/zsh/histfile

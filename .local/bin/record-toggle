@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Start/stop recording the focused monitor with gpu-screen-recorder (NVENC).
+# State lives in $XDG_RUNTIME_DIR/record.pid; waybar's custom/recording reads it.
+pidfile="${XDG_RUNTIME_DIR:-/tmp}/record.pid"
+
+if [ -f "$pidfile" ] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+    kill -INT "$(cat "$pidfile")"
+    rm -f "$pidfile"
+    pkill -RTMIN+9 waybar
+    notify-send -a Recorder "Recording saved" "$(ls -t ~/Videos/Recordings | head -1)"
+    exit 0
+fi
+
+monitor=$(hyprctl activeworkspace -j | jq -r .monitor)
+out=~/Videos/Recordings/$(date +%F_%H-%M-%S).mp4
+gpu-screen-recorder -w "$monitor" -f 60 -a default_output -o "$out" >/dev/null 2>&1 &
+echo $! > "$pidfile"
+pkill -RTMIN+9 waybar
+notify-send -a Recorder "Recording $monitor" "SUPER+SHIFT+R to stop"

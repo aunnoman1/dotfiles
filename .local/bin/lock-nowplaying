@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Now-playing line for hyprlock; prints nothing when no player is active.
+t=$(playerctl metadata --format '{{artist}} — {{title}}' 2>/dev/null | cut -c1-60)
+[ -n "$t" ] && echo "󰎆   $t"

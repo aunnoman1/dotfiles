@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Lock with hyprlock, using whatever wallpaper is currently showing on DP-2.
+pidof hyprlock >/dev/null && exit 0
+active=$(hyprctl hyprpaper listactive 2>/dev/null)
+main=$(awk -F': ' '/^DP-2/ {print $2}' <<<"$active")
+portrait=$(awk -F': ' '/^DP-3/ {print $2}' <<<"$active")
+mkdir -p ~/.cache/hyprlock
+[ -n "$main" ] && ln -sf "$(readlink -f "$main")" ~/.cache/hyprlock/background
+[ -n "$portrait" ] && ln -sf "$(readlink -f "$portrait")" ~/.cache/hyprlock/background-portrait
+exec hyprlock
