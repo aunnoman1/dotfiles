@@ -52,9 +52,44 @@ for i = 1, 10 do
     hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
--- Example special workspace (scratchpad)
--- hl.bind(mainMod .. " + S",         hl.dsp.workspace.toggle_special("magic"))
--- hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+-- Scratchpads: dropdown terminal and notes (placement in window-rules.lua).
+-- Spawns the window if it was closed, otherwise toggles its special workspace.
+local function scratchpad(special, class, cmd)
+    return function()
+        for _, w in ipairs(hl.get_windows()) do
+            if w.class == class then
+                hl.dispatch(hl.dsp.workspace.toggle_special(special))
+                return
+            end
+        end
+        hl.dispatch(hl.dsp.exec_cmd(cmd))
+        hl.dispatch(hl.dsp.workspace.toggle_special(special))
+    end
+end
+hl.bind(mainMod .. " + S",     scratchpad("term",  "scratchterm",  "uwsm app -- kitty --class scratchterm"))
+hl.bind(mainMod .. " + grave", scratchpad("notes", "scratchnotes", "uwsm app -- kitty --class scratchnotes -e vim ~/notes.md"))
+hl.bind(mainMod .. " + ALT + S", hl.dsp.window.move({ workspace = "special:term" }))
+
+-- Window tricks
+hl.bind(mainMod .. " + C",         hl.dsp.window.center())
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pin({ action = "toggle" }))
+hl.bind(mainMod .. " + Tab",       hl.dsp.focus({ workspace = "previous" }))
+
+-- Toggle every window on the current workspace between floating and tiled
+hl.bind(mainMod .. " + SHIFT + T", function()
+    local ws = hl.get_active_workspace()
+    if not ws then return end
+    local windows = hl.get_workspace_windows(ws)
+    local anyTiled = false
+    for _, w in ipairs(windows) do
+        if not w.floating then anyTiled = true end
+    end
+    for _, w in ipairs(windows) do
+        if w.floating ~= anyTiled then
+            hl.dispatch(hl.dsp.window.float({ window = "address:" .. w.address, action = anyTiled and "set" or "unset" }))
+        end
+    end
+end)
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
@@ -82,8 +117,17 @@ hl.bind("XF86AudioRandomPlay", hl.dsp.exec_cmd("playerctl shuffle toggle"), { lo
 -- cliphist
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | wofi --dmenu | cliphist decode | wl-copy"))
 
--- screenshot
+-- screenshots & capture (scripts in ~/.local/bin)
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("grimblast copy area"))
+hl.bind("Print",                   hl.dsp.exec_cmd("grimblast --notify copysave output ~/Pictures/Screenshots/$(date +%F_%H-%M-%S).png"))
+hl.bind(mainMod .. " + Print",     hl.dsp.exec_cmd("grimblast --notify copysave active ~/Pictures/Screenshots/$(date +%F_%H-%M-%S).png"))
+hl.bind(mainMod .. " + SHIFT + A", hl.dsp.exec_cmd("grimblast --freeze save area - | satty --filename - --copy-command wl-copy --output-filename ~/Pictures/Screenshots/satty-$(date +%F_%H-%M-%S).png --early-exit"))
+hl.bind(mainMod .. " + SHIFT + O", hl.dsp.exec_cmd("~/.local/bin/ocr-region"))
+hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("~/.local/bin/color-pick"))
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("~/.local/bin/record-toggle"))
 
 -- mute mic
 hl.bind("XF86Launch5", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"))
+
+-- lock screen (hypridle runs ~/.local/bin/lock)
+hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))

@@ -11,7 +11,6 @@ window#waybar {
     background: rgba(24, 24, 37, 0.55);
     border: 1px solid rgba(69, 71, 90, 0.9);
     border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
     transition-property: background-color;
     transition-duration: 0.5s;
 }
@@ -85,7 +84,13 @@ button {
 #keyboard-state,
 #language,
 #tray,
-#custom-media {
+#custom-media,
+#custom-gpu,
+#disk,
+#bluetooth,
+#custom-updates,
+#custom-nightlight,
+#custom-recording {
     background-color: rgba(49, 50, 68, 0.72);
     border-radius: 10px;
     padding: 2px 12px;
@@ -103,7 +108,13 @@ button {
 #keyboard-state:hover,
 #language:hover,
 #tray:hover,
-#custom-media:hover {
+#custom-media:hover,
+#custom-gpu:hover,
+#disk:hover,
+#bluetooth:hover,
+#custom-updates:hover,
+#custom-nightlight:hover,
+#custom-recording:hover {
     background-color: rgba(69, 71, 90, 0.9);
 }
 
@@ -234,4 +245,69 @@ tooltip {
 
 tooltip label {
     color: #cdd6f4;
+}
+
+/* ---------- extra modules (modules.jsonc) ---------- */
+
+#custom-gpu {
+    color: #74c7ec;
+}
+
+#custom-gpu.critical {
+    background-color: #f38ba8;
+    color: #11111b;
+    font-weight: bold;
+}
+
+#disk {
+    color: #f5c2e7;
+}
+
+#disk.warning {
+    color: #fab387;
+}
+
+#disk.critical {
+    background-color: #f38ba8;
+    color: #11111b;
+}
+
+#bluetooth {
+    color: #89b4fa;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: #6c7086;
+}
+
+#custom-updates {
+    color: #a6e3a1;
+}
+
+#custom-nightlight {
+    color: #a6adc8;
+}
+
+#custom-nightlight.on {
+    color: #f9e2af;
+}
+
+#custom-recording {
+    background-color: #f38ba8;
+    color: #11111b;
+    font-weight: bold;
+}
+
+/* hardware drawer: children slide out next to the cpu pill */
+#hardware {
+    margin: 0;
+}
+
+/* waybar's "spacing" doesn't apply inside groups, so space the drawer pills by hand */
+#memory,
+#temperature,
+#custom-gpu,
+#disk {
+    margin-left: 4px;
 }

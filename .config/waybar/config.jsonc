@@ -3,13 +3,14 @@
   {
     "output": ["DP-2"],
     "layer": "top", // Waybar at top layer
+    "include": ["~/.config/waybar/modules.jsonc"],
     // "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 42, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 4, // Gaps between modules (px)
-    "margin-top": 5, // floating inset (matches general gaps_out)
-    "margin-left": 5,
-    "margin-right": 5,
+    "margin-top": 4, // floating inset (matches general gaps_out)
+    "margin-left": 4,
+    "margin-right": 4,
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
@@ -20,14 +21,15 @@
         "hyprland/window"
     ],
     "modules-right": [
+        "custom/recording",
+        "custom/updates",
+        "custom/nightlight",
         "idle_inhibitor",
         "pulseaudio",
+        "bluetooth",
         "network",
-        "cpu",
-        "memory",
-        "temperature",
+        "group/hardware",
         "keyboard-state",
-        "hyprland/language",
         "clock",
         "tray",
         "custom/power"
@@ -159,13 +161,14 @@
   {
     "output": ["DP-3"],
     "layer": "top", // Waybar at top layer
+    "include": ["~/.config/waybar/modules.jsonc"],
     // "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 42, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
     "spacing": 2, // Gaps between modules (px)
-    "margin-top": 5, // floating inset (matches general gaps_out)
-    "margin-left": 5,
-    "margin-right": 5,
+    "margin-top": 4, // floating inset (matches general gaps_out)
+    "margin-left": 4,
+    "margin-right": 4,
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
@@ -176,11 +179,10 @@
         "hyprland/window"
     ],
     "modules-right": [
+        "custom/recording",
         "pulseaudio",
         "network",
-        "cpu",
-        "memory",
-        "temperature",
+        "group/hardware",
         "keyboard-state",
         "clock",
         "tray",

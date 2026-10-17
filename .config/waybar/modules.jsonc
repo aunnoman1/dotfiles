@@ -1,0 +1,59 @@
+// Extra modules shared by both bars (pulled in via "include" in config.jsonc)
+{
+    "group/hardware": {
+        "orientation": "horizontal",
+        "drawer": {
+            "transition-duration": 300,
+            "transition-left-to-right": false,
+            "children-class": "hw-child"
+        },
+        "modules": ["cpu", "memory", "temperature", "custom/gpu", "disk"]
+    },
+    "custom/gpu": {
+        "exec": "~/.config/waybar/scripts/gpu.sh",
+        "return-type": "json",
+        "interval": 3,
+        "on-click": "kitty -e btop"
+    },
+    "disk": {
+        "path": "/",
+        "interval": 60,
+        "format": "󰋊 {percentage_used}%",
+        "tooltip-format": "{used} used of {total} on {path}",
+        "states": { "warning": 85, "critical": 95 }
+    },
+    "custom/updates": {
+        "exec": "~/.config/waybar/scripts/updates.sh",
+        "return-type": "json",
+        "interval": 1800,
+        "signal": 8,
+        "on-click": "kitty -e sh -c 'yay; pkill -RTMIN+8 waybar'"
+    },
+    "custom/recording": {
+        "exec": "~/.config/waybar/scripts/recording.sh",
+        "return-type": "json",
+        "interval": 1,
+        "signal": 9,
+        "on-click": "~/.local/bin/record-toggle"
+    },
+    "custom/nightlight": {
+        "exec": "~/.config/waybar/scripts/nightlight.sh",
+        "return-type": "json",
+        "interval": 60,
+        "signal": 10,
+        "on-click": "~/.config/waybar/scripts/nightlight.sh toggle",
+        "on-scroll-up": "~/.config/waybar/scripts/nightlight.sh up",
+        "on-scroll-down": "~/.config/waybar/scripts/nightlight.sh down"
+    },
+    "bluetooth": {
+        "format": "󰂯",
+        "format-disabled": "󰂲",
+        "format-off": "󰂲",
+        "format-connected": "󰂱 {device_alias}",
+        "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+        "on-click": "blueman-manager"
+    }
+}

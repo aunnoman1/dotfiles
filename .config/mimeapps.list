@@ -13,10 +13,12 @@ x-scheme-handler/postman=Postman.desktop
 application/x-colpkg=anki.desktop
 application/x-apkg=anki.desktop
 application/x-ankiaddon=anki.desktop
+video/webm=com.google.Chrome.desktop
 
 [Added Associations]
-text/plain=code.desktop;nano-terminal.desktop;userapp-nano-C95282.desktop;
+text/plain=vim.desktop;code.desktop;nano-terminal.desktop;userapp-nano-C95282.desktop;
 application/zip=xarchiver.desktop;userapp-unzip-U8UBA3.desktop;
 application/x-bat=nano-terminal.desktop;
 video/mp4=com.google.Chrome.desktop;
 inode/directory=xarchiver.desktop;
+video/webm=com.google.Chrome.desktop;
